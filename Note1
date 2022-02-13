@@ -1,0 +1,114 @@
+package com.packageTest;
+
+import java.util.Date;
+import java.util.Scanner;
+
+/**
+ * @author harrison
+ * @version 1.0
+ * @since 1.8
+ */
+public class HelloWorld {
+    public static void main(String[] arg){
+        System.out.println("Hello,World!");//不解释
+
+        int a = 10000;
+        float f=2.8f;                  //屁股加字母
+        long b=39l;                    //屁股加字母，大写L为long对象 小写l才是基本数据类型
+        byte c=(byte)a;//类型转换
+
+        System.out.println(""+a+b);   //字符串写前面 后面的+变成拼接 而不运算
+
+        System.out.println(a+b+"");   //字符串写后面前面要运算
+
+        System.out.println(b%a);      //取余
+
+        Date date=new Date();         //时间类 测试导入工具包的
+
+        //----------------------------------------------------------------------------------分割线
+
+        Scanner scanner = new Scanner(System.in);//scanner类操作测试 属于io流
+        System.out.println("请输入成绩：");
+        int scores =scanner.nextInt();
+          //next（）方法 让程序等待用户输入完毕 再往下执行 注意：与nextLine区别
+          //next方法输入的内容中 一旦有空格 输出的时候 空格后面的内容都没有了 nextLine方法可以有空格 用nextLine时 要对应hasNextLine
+
+        if (scanner.hasNextInt()){     //hNext()方法用来判断是否输入了内容
+            System.out.println("scanner测试 输入的成绩为:"+scores);
+        }else{
+            System.out.println("你输入的不是整数");
+        }
+        scanner.close();         //io流的东西记得关 否则占资源很多
+
+        //-------------------------------------------------------------------------------------分割线
+
+        if( scores< 60){         //测试if else if多选择分支结构
+            System.out.println("恭喜没及格");
+        }else if (scores>=60&&scores<100){
+            System.out.println("恭喜及格，但没满分");
+        }else if (scores==100){
+            System.out.println("恭喜满分");
+        }else if(scores>=100){
+            System.out.println("输入的数字大于了100");
+        }
+
+        //------------------------------------------------------------------分割线 switch-case测试
+
+        switch (scores){     //本质是匹配机制 用scores来与case后面的值进行匹配 匹配到哪个就输出哪个 ,可以用int short byte char
+                             // string也可以 case标签与switch后面的类型保持一致 不然怎么匹配捏
+            case 60 :
+                //此处写语句
+                break;      //可以不写break 但是会穿透 就是说 如果执行了case 60且没有break 则后面全部都会执行，所以尽量写
+            case 70 :
+                //此处写语句
+                break;
+            default:        //上面情况都不匹配
+                //写语句
+        }
+
+        System.out.println("-------------------------------------------------------------------分割线 测试while循环");
+
+        while (scores<100) {
+            System.out.println("while测试 没满分 渣渣"+scores);
+            scores++;
+
+        }
+
+        //while与do while区别 一个先判断在执行 一个先执行再判断 do至少执行一次语句 括号里面是个布尔值 与for循环区别 for里面有迭代体
+        //不加迭代容易死循环
+        System.out.println("-------------------------------------------------------------------分割线 测试do while循环");
+        do {
+            System.out.println("do while测试 没满分 渣渣"+scores);
+            scores++;
+        }while (scores<100);
+
+        System.out.println("-------------------------------------------------------------------分割线  测试for循环");
+
+        for (int i =1 ; i <= 5; i++) {   //只需输入数字.for 就可以生成对应循环次数的for循环
+            int sum=0;
+            sum=sum+i;
+            System.out.println(sum);
+        }
+        System.out.println("------------------------------------------------------------------分割线 测试九九乘法表") ;
+            for (int x = 1; x <= 9; x++) {
+                for (int y = 1; y <= x; y++) {
+                    System.out.print(y+"*"+x+"="+x*y +"\t");//每一次外部循环开始 内部循环的变量都被重置了 我以前不知道
+
+            }
+            System.out.println("y是局部变量,每一排开始y都被重置 不信你看");
+        }
+
+            System.out.println("------------------------------------------------------------------分割线 增强for循环") ;
+
+            int[] array={1,2,3,4,5}; //作用遍历数组或集合collection
+        for (int z:array) {
+            System.out.println(z);
+
+        }
+
+        System.out.println("------------------------------------------------------------------分割线 ") ;
+
+
+    }
+
+}
