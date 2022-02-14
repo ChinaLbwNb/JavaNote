@@ -9,57 +9,57 @@ import java.util.Scanner;
  * @since 1.8
  */
 public class HelloWorld {
-    public static void main(String[] arg){
+    public static void main(String[] arg) {
         System.out.println("Hello,World!");//不解释
 
-        int a = 10000;
-        float f=2.8f;                  //屁股加字母
-        long b=39l;                    //屁股加字母，大写L为long对象 小写l才是基本数据类型
-        byte c=(byte)a;//类型转换
+        int a = 10;
+        float d = 2.8f;                  //屁股加字母
+        long b = 39l;                    //屁股加字母，大写L为long对象 小写l才是基本数据类型
+        byte c = (byte) a;//类型转换
 
-        System.out.println(""+a+b);   //字符串写前面 后面的+变成拼接 而不运算
+        System.out.println("" + a + b);   //字符串写前面 后面的+变成拼接 而不运算
 
-        System.out.println(a+b+"");   //字符串写后面前面要运算
+        System.out.println(a + b + "");   //字符串写后面前面要运算
 
-        System.out.println(b%a);      //取余
+        System.out.println(b % a);      //取余
 
-        Date date=new Date();         //时间类 测试导入工具包的
+        Date date = new Date();         //时间类 测试导入工具包的
 
         //----------------------------------------------------------------------------------分割线
 
         Scanner scanner = new Scanner(System.in);//scanner类操作测试 属于io流
         System.out.println("请输入成绩：");
-        int scores =scanner.nextInt();
-          //next（）方法 让程序等待用户输入完毕 再往下执行 注意：与nextLine区别
-          //next方法输入的内容中 一旦有空格 输出的时候 空格后面的内容都没有了 nextLine方法可以有空格 用nextLine时 要对应hasNextLine
+        int scores = scanner.nextInt();
+        //next（）方法 来获取内容 并让程序等待用户输入完毕 再往下执行 注意：与nextLine区别
+        //next方法输入的内容中 一旦有空格 输出的时候 空格后面的内容都没有了 nextLine方法可以有空格 用nextLine时 要对应hasNextLine
 
-        if (scanner.hasNextInt()){     //hNext()方法用来判断是否输入了内容
-            System.out.println("scanner测试 输入的成绩为:"+scores);
-        }else{
+        if (scanner.hasNextInt()) {     //hNext()方法用来判断是否输入了内容
+            System.out.println("scanner测试 输入的成绩为:" + scores);
+        } else {
             System.out.println("你输入的不是整数");
         }
         scanner.close();         //io流的东西记得关 否则占资源很多
 
         //-------------------------------------------------------------------------------------分割线
 
-        if( scores< 60){         //测试if else if多选择分支结构
+        if (scores < 60) {         //测试if else if多选择分支结构
             System.out.println("恭喜没及格");
-        }else if (scores>=60&&scores<100){
+        } else if (scores >= 60 && scores < 100) {
             System.out.println("恭喜及格，但没满分");
-        }else if (scores==100){
+        } else if (scores == 100) {
             System.out.println("恭喜满分");
-        }else if(scores>=100){
+        } else if (scores >= 100) {
             System.out.println("输入的数字大于了100");
         }
 
         //------------------------------------------------------------------分割线 switch-case测试
 
-        switch (scores){     //本质是匹配机制 用scores来与case后面的值进行匹配 匹配到哪个就输出哪个 ,可以用int short byte char
-                             // string也可以 case标签与switch后面的类型保持一致 不然怎么匹配捏
-            case 60 :
+        switch (scores) {     //本质是匹配机制 用scores来与case后面的值进行匹配 匹配到哪个就输出哪个 ,可以用int short byte char
+            // string也可以 case标签与switch后面的类型保持一致 不然怎么匹配捏
+            case 60:
                 //此处写语句
                 break;      //可以不写break 但是会穿透 就是说 如果执行了case 60且没有break 则后面全部都会执行，所以尽量写
-            case 70 :
+            case 70:
                 //此处写语句
                 break;
             default:        //上面情况都不匹配
@@ -68,8 +68,8 @@ public class HelloWorld {
 
         System.out.println("-------------------------------------------------------------------分割线 测试while循环");
 
-        while (scores<100) {
-            System.out.println("while测试 没满分 渣渣"+scores);
+        while (scores < 100) {
+            System.out.println("while测试 没满分 渣渣" + scores);
             scores++;
 
         }
@@ -78,37 +78,85 @@ public class HelloWorld {
         //不加迭代容易死循环
         System.out.println("-------------------------------------------------------------------分割线 测试do while循环");
         do {
-            System.out.println("do while测试 没满分 渣渣"+scores);
+            System.out.println("do while测试 没满分 渣渣" + scores);
             scores++;
-        }while (scores<100);
+        } while (scores < 100);
 
         System.out.println("-------------------------------------------------------------------分割线  测试for循环");
 
-        for (int i =1 ; i <= 5; i++) {   //只需输入数字.for 就可以生成对应循环次数的for循环
-            int sum=0;
-            sum=sum+i;
+        for (int i = 1; i <= 5; i++) {   //只需输入数字.for 就可以生成对应循环次数的for循环
+            int sum = 0;
+            sum = sum + i;
             System.out.println(sum);
         }
-        System.out.println("------------------------------------------------------------------分割线 测试九九乘法表") ;
-            for (int x = 1; x <= 9; x++) {
-                for (int y = 1; y <= x; y++) {
-                    System.out.print(y+"*"+x+"="+x*y +"\t");//每一次外部循环开始 内部循环的变量都被重置了 我以前不知道
+        System.out.println("------------------------------------------------------------------分割线 测试九九乘法表");
+        for (int x = 1; x <= 9; x++) {
+            for (int y = 1; y <= x; y++) {
+                System.out.print(y + "*" + x + "=" + x * y + "\t");//每一次外部循环开始 内部循环的变量都被重置了 我以前不知道
 
             }
-            System.out.println("y是局部变量,每一排开始y都被重置 不信你看");
+            System.out.println();
         }
 
-            System.out.println("------------------------------------------------------------------分割线 增强for循环") ;
+        System.out.println("------------------------------------------------------------------分割线 增强for循环");
 
-            int[] array={1,2,3,4,5}; //作用遍历数组或集合collection
-        for (int z:array) {
+        int[] array = {1, 2, 3, 4, 5}; //作用遍历数组或集合collection
+        for (int z : array) {
             System.out.println(z);
 
         }
 
-        System.out.println("------------------------------------------------------------------分割线 ") ;
+        System.out.println("------------------------------------------------------------------分割线 测试break和continue");
+
+        for (; a <= 20; a++) {
+            System.out.println(a);
+            if (a == 15) {
+                break;
+            }
+        }
+        System.out.println("break只是终止循环体里的语句 不影响外面的");
+
+        while (a <= 20) {
+            System.out.println(a);
+            a++;
+            if (a == 15) {
+                continue;         //只跳出本次循环 接着执行下一次
+            }
+        }
+        System.out.println("------------------------------------------------------------------分割线 测试方法method");
+        /**方法的格式
+         *修饰符 返回值类型 方法名(参数类型 参数值){
+         *
+         *         方法体；
+         *
+         *         return 返回值;
+         *         }
+         *public static int add(int n,int m) {              //尼玛要写在main方法外面才行
+         *
+         *             return n+m;
+         *}
 
 
+         */
+
+        int e = add(1, 5); //调用add方法
+        System.out.print(e);
+
+        int f = add(1.5,2.0);//测试方法重载（编译器自行匹配实参输入的类型来调用符合的方法）
+        System.out.println(f);
+
+        int g=add(1,2,3,4,5,6,7,8,9);//测试可变参数 实质是数组
+        System.out.println(g);
     }
 
+    public static int add(int n, int m) { //尼玛要写在main方法外面才行
+        return n + m;
+    }
+
+    public static int add(double n,double m) { //(互推)构成方法重载<<=>>方法名必须相同 形式参数必须不同（不同体现在 形参个数和类型） 返回值可同可不同
+        return (int) (n + m);                  //简单来说就是一个类中 方法名一样但形参不一样的两个方法 或多个
+    }
+    public static int add(int... n) { //可变参数 其实就是数组 形参变成了形式数组 只能定义一个且必须写在最后一个 格式是在类型后面加省略号
+        return n.length;
+    }
 }
