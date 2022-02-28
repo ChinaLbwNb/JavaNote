@@ -304,6 +304,56 @@ public class HelloWorld {
                                     //最大异常类 Throwable 分支两个 Error（分栈溢出和内存溢出） 和 Exception（分io异常和runtime异常）
 
         //自定义异常 手写一个类继承Exception
+        System.out.println("------------------------------------------------------------------分割线 测试21。常用类.Math类");
+        //21*常用类 （API)
+        //*1 Math类 lang包中 使用无需导包
+        System.out.println(Math.abs(-88)); //返回绝对值
+        System.out.println(Math.ceil(1.35));//返回整数 向上取整 ，英文直译天花板
+        System.out.println(Math.floor(1.35));//返回整数，向下取整，英文直译地板
+        System.out.println(Math.round(1.35));//返回整数，四舍五入。
+        System.out.println(Math.max(1,2));//两数相比反其大 还有min方法
+        System.out.println(Math.pow(2,4));// 返回2的四次方
+        System.out.println(Math.random());//返回0~1的随机数
+        System.out.println("------------------------------------------------------------------分割线 测试21.2 system类");
+
+        //*2 System类 lang包中 使用无需导包
+
+        System.out.println("start");
+        //System.exit(0);   该方法 终止当前运行的Java虚拟机，非零表示异常中止
+        System.out.println("exit");
+
+        System.out.println(System.currentTimeMillis()); //返回当前时间与1970-1-1的毫米差值
+        System.out.println("距离1970年1月1日  "+System.currentTimeMillis()/1000.0/3600/24/365+"年");
+
+        System.out.println("------------------------------------------------------------------分割线 测试21.3 Object类");
+
+
+        //*3  Object类  lang包中 无需导入 祖宗类 所有类都直接间接继承Object类
+        System.out.println(lucy.toString()); //toString获取对象的信息 ，建议所有子类重写 不然返回的是对象地址
+        System.out.println(lbw.equals(lucy));//对象内容的比较用equals方法 不能用==  也要重写不然比较地址值 alt+insert在类里面重写
+        //总结 记得重写tostring 和equals
+
+        //*4 Arrays类(大写加s) util类中 需导包
+        int[] arr={7,9,8,2};
+        System.out.println("排序前"+Arrays.toString(arr));//Arrays.toString获取数组
+        Arrays.sort(arr);                                //Araays.sort排序 效率不如冒泡
+        System.out.println("排序后"+Arrays.toString(arr));
+
+        //*5包装类 八大基本类型本别对应自己的包装类
+        Integer i1=Integer.valueOf(100);  //创建Integer对象并赋值   不能使用 new Integer（）； 因为已经过时
+        //其他类型 long--Long float--Float char--Character 除了int 和 char 以外都只是把首字母变大写
+
+        //StringBuilder  存在的原因：为了解决string浪费资源的情况 每次对string操作就会生成新的对象 浪费资源 而stringbuilder可以直接更改 可变字符序列
+        StringBuilder sb=new StringBuilder();
+        sb.append("hello").append("fuck").append("you");//append方法 和链式编程 对象可以连续调方法
+        sb.reverse();//反转所有字符的方法
+        System.out.println(sb);
+        //SringBuilder与String的转换
+
+        String sb2= sb.toString(); //stringbuilder转string   使用toString方法可以将值赋给String
+
+        StringBuilder sb3=new StringBuilder(sb2); //String转stringbuilder  构造方法传参
+
 
 
 
