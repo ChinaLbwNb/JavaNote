@@ -1,9 +1,5 @@
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+{
 
-
-public class HelloWorld {
 
 
 
@@ -294,14 +290,14 @@ public class HelloWorld {
         }
         //最大异常类 Throwable 分支两个 Error（分栈溢出和内存溢出） 和 Exception（分io异常和runtime异常）
 
-       //throws处理  ：暂时往外抛 不处理  方法后面throws+类名 可以抛给调用者 但解决不了问题
+        //throws处理  ：暂时往外抛 不处理  方法后面throws+类名 可以抛给调用者 但解决不了问题
 
         //自定义异常 手写一个类 必须继承Exception
 
 
         System.out.println("------------------------------------------------------------------分割线 测试21。常用类.Math类");
         //21*常用类 （API)
-                //*1 Math类 lang包中 使用无需导包
+        //*1 Math类 lang包中 使用无需导包
         System.out.println(Math.abs(-88)); //返回绝对值
         System.out.println(Math.ceil(1.35));//返回整数 向上取整 ，英文直译天花板
         System.out.println(Math.floor(1.35));//返回整数，向下取整，英文直译地板
@@ -311,7 +307,7 @@ public class HelloWorld {
         System.out.println(Math.random());//返回0~1的随机数
         System.out.println("------------------------------------------------------------------分割线 测试21.2 system类");
 
-                //*2 System类 lang包中 使用无需导包
+        //*2 System类 lang包中 使用无需导包
 
         System.out.println("start");
         //System.exit(0);   该方法 终止当前运行的Java虚拟机，非零表示异常中止
@@ -322,19 +318,19 @@ public class HelloWorld {
 
 
         System.out.println("------------------------------------------------------------------分割线 测试21.3 Object类");
-                //*3  Object类  lang包中 无需导入 祖宗类 所有类都直接间接继承Object类
+        //*3  Object类  lang包中 无需导入 祖宗类 所有类都直接间接继承Object类
         System.out.println(lucy.toString()); //toString获取对象的信息 ，建议所有子类重写 不然返回的是对象地址
         System.out.println(lbw.equals(lucy));//对象内容的比较用equals方法 不能用==  也要重写不然比较地址值 alt+insert在类里面重写
         //总结 记得重写tostring 和equals
 
-                //*4 Arrays类(大写加s) util类中 需导包
-       int[] arr={7,9,8,2};
+        //*4 Arrays类(大写加s) util类中 需导包
+        int[] arr={7,9,8,2};
         System.out.println("排序前"+Arrays.toString(arr));//Arrays.toString获取数组
         Arrays.sort(arr);                                //Araays.sort排序 效率不如冒泡
         System.out.println("排序后"+Arrays.toString(arr));
 
-                //*5包装类 八大基本类型本别对应自己的包装类
-         Integer i1=Integer.valueOf(100);  //创建Integer对象并赋值   不能使用 new Integer（）； 因为已经过时
+        //*5包装类 八大基本类型本别对应自己的包装类
+        Integer i1=Integer.valueOf(100);  //创建Integer对象并赋值   不能使用 new Integer（）； 因为已经过时
 
         //其他类型 long--Long float--Float char--Character 除了int 和 char 以外都只是把首字母变大写
 
@@ -348,21 +344,21 @@ public class HelloWorld {
         String sb2= sb.toString(); //stringbuilder转string   使用toString方法可以将值赋给String
         StringBuilder sb3=new StringBuilder(sb2); //String转stringbuilder  构造方法传参
 
-                //*5 日期类
+        //*5 日期类
         //*5.1 Date类 有多个包有这个类 我们学的util包中的 要导
-                //创建日期对象
+        //创建日期对象
         long millitime =1000*3600;
         Date date2=new Date(millitime); //有参long类型 单位毫秒 传入后是 传入数据加上 1970年1月1日0时0分的时间 也要分时区 东八区为8时
         Date date1=new Date();// 无参构造 获得当前时间
         System.out.println(date2);
         System.out.println(date1);
-                //常用方法
+        //常用方法
         System.out.println(date1.getTime());//getTime方法获取date1时间 距离基准时间的毫秒数
         date2.setTime(millitime*24);//setTime方法 和创建对象时候传参效果一样 在基准时间的基础上加时间 单位为毫米,以前赋的值作废
         System.out.println(date2);
 
 
-                //SimpleDateFormat类 需导包 在text包中
+        //SimpleDateFormat类 需导包 在text包中
         SimpleDateFormat sdf=new SimpleDateFormat();//无参构造  是系统给定格式 年月日 时分
         String stri = sdf.format(date1);//format方法 将日期格式化成字符串 Date到Srting
         System.out.println(stri);
@@ -373,12 +369,12 @@ public class HelloWorld {
 
         //从String到Date 需要与规定格式匹配
         String strin="2077年01月01日00时00分00秒";
-       // System.out.println(sdf.parse(strin)); //parse方法需要抛出异常
+        // System.out.println(sdf.parse(strin)); //parse方法需要抛出异常
 
         //Calendar类
         Calendar cal=Calendar.getInstance();
         System.out.println(cal.get(Calendar.YEAR)+"    "+ cal.get(Calendar.MONTH)+1);//月从0开始的
-         //calendar方法
+        //calendar方法
         cal.get(Calendar.MONTH);//获取值
         cal.add(Calendar.YEAR,-3); //对具体时间进行数学运算操作
         cal.set(2077,1,1);//修改数据
@@ -394,7 +390,7 @@ public class HelloWorld {
 
         System.out.println("------------------------------------------------------------------分割线 测试22 集合");
         //22*集合  分为Colletion和Map这两个都是顶层接口 靠子接口实例
-                  // Collection及List存在的原因：解决数组不能改变而适应不了变化的需求
+        // Collection及List存在的原因：解决数组不能改变而适应不了变化的需求
 
         //Collection集合 是单例集合的顶层接口 表示一组对象 不能直接实例 只能子接口实例 它的直接子接口是List和Set
         Collection<String> col=new ArrayList<String>();
@@ -420,6 +416,7 @@ public class HelloWorld {
         //数据结构 1.栈 类似弹匣先进后出 2.队列 类似弹匣底部是空的 先进也 从下面先出
         //3.数组 查询快（索引定位），增删慢（删了需要后面所有元素前移动，增加往后移，效率低） //由ArrayList底层实现
         //4.链表 增删快，查询慢（查任意一个要从头节点查） 链表的元素叫节点 节点有三个数据 1自身的地址，2具体存储的内容 3下一个节点的地址 //由LinkedList底层实现
+        //5.哈希表 jdk8以前是链表加数组实现 相当于横着一排数组 垂直于每个位置竖着存储链表数据 同一链表元素不可重复
 
 
         //List集合特点 1.有序 2.可重复 List为接口 实现类为ArrayList和LinkedList
@@ -464,9 +461,27 @@ public class HelloWorld {
         Set set1=new HashSet<>();//正常的add get方法都有
 
         //哈希值 hashcode 是jdk根据字符串或数字或对象的地址算出来的int类型数值
-        System.out.println(lbw.hashCode());
+        System.out.println(lbw.hashCode()); //同一个对象哈希值相同  、一般情况下不用同对象哈希值不同 ，因为重写hashcode方法可以使其相同
 
-        
+        //HashSet  1。底层由哈希表实现 2.顺序不做保证（即存入和取出的顺序可能不一样） 3.没有元素索引 不能for遍历 可以增强for循环和迭代器遍历 4.无重复元素
+        // 5. 录入多个对象时 有可能属性完全相同的对象被录入(哈希值相同)   此时可以在类中alt+insert重写hashcode和equals方法 检测属性 防止被录入相同的
+
+        for (String as:al) {
+            System.out.println(as.toString());
+
+        }
+
+
+        //LinkedHashSet  区别HashSet  这个就是加入了链表 由哈希表和链表共同实现 使其有序 其他一样 哈希表保证不可重复 无索引
+
+        //TreeSet  //区别 元素有序 但不是存入顺序 是存入之后按其构造方法写的规则排序 有自然排序和指定比较器排序两种
+
+
+
+
+
+
+
 
 
 
