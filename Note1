@@ -1,22 +1,14 @@
-package com.packageTest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import com.sun.xml.internal.ws.wsdl.writer.document.Import;
-import sun.security.mscapi.CPublicKey;
 
-import java.util.Date;
-import java.util.Scanner;
-import java.util.Arrays;
-
-/**
- * @author harrison
- * @version 1.0
- * @since 1.8
- */
 public class HelloWorld {
 
+
+
     //1经典开头
-    public static void main(String[] arg) {
+    public static void main(String[] arg) throws ParseException {
         System.out.println("-------------------------------------------------------------------分割线 测试1.helloworld");
         System.out.println("Hello,World!");//不解释
 
@@ -39,12 +31,13 @@ public class HelloWorld {
         //3 scanner类----------------------------------------------------------------------------------分割线
 
         Scanner scanner = new Scanner(System.in);//scanner类操作测试 属于io流
-        System.out.println("请输入成绩：");
-        int scores = scanner.nextInt();
+        System.out.print("请输入成绩：");
+
         //next（）方法 来获取内容 并让程序等待用户输入完毕 再往下执行 注意：与nextLine区别
         //next方法输入的内容中 一旦有空格 输出的时候 空格后面的内容都没有了 nextLine方法可以有空格 用nextLine时 要对应hasNextLine
+        int scores = scanner.nextInt();
+        if(scanner.hasNextInt()) {     //hNext()方法用来判断是否输入了内容
 
-        if (scanner.hasNextInt()) {     //hNext()方法用来判断是否输入了内容
             System.out.println("scanner测试 输入的成绩为:" + scores);
         } else {
             System.out.println("你输入的不是整数");
@@ -137,7 +130,7 @@ public class HelloWorld {
             }
         }
         System.out.println("------------------------------------------------------------------分割线 测试8.方法method");
-       //8. 方法method
+        //8. 方法method
         /**方法的格式
          *修饰符 返回值类型 方法名(参数类型 参数值){
          *
@@ -197,16 +190,16 @@ public class HelloWorld {
         HelloWorld.say1();
         HelloWorld say = new HelloWorld();
         say.say2();     //测试结果表明 静态方法可直接用 类.方法(); 调用 ，非静态方法方法需要实例化一个所在类，用该类的对象来调 对象.方法();
-                        //原理：static方法是和类一起加载，而非static是对象创建后才存在 (这句话谨记)
-                        //更新解释 static的方法归属于类 非static归属于对象
+        //原理：static方法是和类一起加载，而非static是对象创建后才存在 (这句话谨记)
+        //更新解释 static的方法归属于类 非static归属于对象
 
         System.out.println("------------------------------------------------------------------分割线 测试12.类和对象的创建");
         //12.测试类和对象的创建--------------------------------------------------------------------------测试类和对象的创建
 
         //类是抽象的，需要实例化成对象
-        studentTest jack=new studentTest();
-        jack.name="jack";
-        jack.age=15;
+        studentTest jack = new studentTest();
+        jack.name = "jack";
+        jack.age = 15;
         System.out.println(jack.name + jack.age);
 
         System.out.println("------------------------------------------------------------------分割线 测试13.构造器");
@@ -215,7 +208,7 @@ public class HelloWorld {
         // 2*不能写任何返回类型，void也不行
         // 3* alt+insert 快捷键生成构造器
         // 4* 定义有参构造器必须要显示定义无参
-        studentTest LBW=new studentTest();
+        studentTest LBW = new studentTest();
 
         System.out.println("------------------------------------------------------------------分割线 测试14.封装继承");
         //14.----------------------------------------------封装，继承，多态
@@ -227,7 +220,7 @@ public class HelloWorld {
         //2*继承
         //继承父类的属性和方法可直接使用，但私有属性无法直接使用（本质是继承了的，不能直接用），可用get方法获得
         //所有类都是继承了object类的 java.lang包中的 祖宗类 （jdk自动加了extends Object）
-        student2 lucy=new student2(); //继承父类后 new对象将首先调用父类构造器然后调用子类构造器（都要调）
+        student2 lucy = new student2(); //继承父类后 new对象将首先调用父类构造器然后调用子类构造器（都要调）
 
 
         //3* super关键字
@@ -249,11 +242,10 @@ public class HelloWorld {
         System.out.println(lucy instanceof studentTest);
 
         //低转高 向上转型 自动转
-        studentTest lbw=new student2(); //区别是 走了子类的构造方法 但不能直接用子类的普通方法
+        studentTest lbw = new student2(); //区别是 走了子类的构造方法 但不能直接用子类的普通方法
         //高转低 向下转型 强制手动转 所以才能用子类方法
-        ((student2)lbw).go();//父类想用子类的方法 就这样强转
-        student2 lll=(student2) lbw;//先有向上转 再有向下转
-
+        ((student2) lbw).go();//父类想用子类的方法 就这样强转
+        student2 lll = (student2) lbw;//先有向上转 再有向下转
 
 
         //16* static详解
@@ -262,12 +254,10 @@ public class HelloWorld {
         //final断子绝孙 不可修改不可继承
 
 
-
         //17* 抽象类 abstract关键字修饰
         //a.不能实例化一个对象出来，必须靠子类实现，相当于在写规范，一种约束
         //b.抽象类里以写普通方法 普通类不能写抽象方法
         //c.继承了的子类必须重写抽象方法
-
 
 
         //18* 接口interface 和类class 同级 interface 和抽象类类似 不同点是接口可以多继承
@@ -277,17 +267,18 @@ public class HelloWorld {
 
 
         //19* 内部大类 有四种
-         class inner{ //这就是第一种成员内部类 可以获得外部类的属性（包括私有）
-             private  void GO(){
-             class jubuInner{ }//这是第二种局部内部类 卸载方法里面的内部类
+        class inner { //这就是第一种成员内部类 可以获得外部类的属性（包括私有）
+            private void GO() {
+                class jubuInner {
+                }//这是第二种局部内部类 卸载方法里面的内部类
 
-             }
-         }
+            }
+        }
 
-         new inner().GO();//这里没有将对象保存进一个名字 称为匿名对象
+        new inner().GO();//这里没有将对象保存进一个名字 称为匿名对象
 
 
-         //第三种静态内部类 public static class inner{}  区别是static优先加载 所以无法获取外部类的非静态属性
+        //第三种静态内部类 public static class inner{}  区别是static优先加载 所以无法获取外部类的非静态属性
         //第四种匿名内部类 作用节省代码
 
         System.out.println("------------------------------------------------------------------分割线 测试20.异常机制");
@@ -301,12 +292,16 @@ public class HelloWorld {
         } finally {                 //处理善后 以后的io流 关资源 //可以不写
             System.out.println("finally无论怎样都要执行");
         }
-                                    //最大异常类 Throwable 分支两个 Error（分栈溢出和内存溢出） 和 Exception（分io异常和runtime异常）
+        //最大异常类 Throwable 分支两个 Error（分栈溢出和内存溢出） 和 Exception（分io异常和runtime异常）
 
-        //自定义异常 手写一个类继承Exception
+       //throws处理  ：暂时往外抛 不处理  方法后面throws+类名 可以抛给调用者 但解决不了问题
+
+        //自定义异常 手写一个类 必须继承Exception
+
+
         System.out.println("------------------------------------------------------------------分割线 测试21。常用类.Math类");
         //21*常用类 （API)
-        //*1 Math类 lang包中 使用无需导包
+                //*1 Math类 lang包中 使用无需导包
         System.out.println(Math.abs(-88)); //返回绝对值
         System.out.println(Math.ceil(1.35));//返回整数 向上取整 ，英文直译天花板
         System.out.println(Math.floor(1.35));//返回整数，向下取整，英文直译地板
@@ -316,7 +311,7 @@ public class HelloWorld {
         System.out.println(Math.random());//返回0~1的随机数
         System.out.println("------------------------------------------------------------------分割线 测试21.2 system类");
 
-        //*2 System类 lang包中 使用无需导包
+                //*2 System类 lang包中 使用无需导包
 
         System.out.println("start");
         //System.exit(0);   该方法 终止当前运行的Java虚拟机，非零表示异常中止
@@ -325,34 +320,158 @@ public class HelloWorld {
         System.out.println(System.currentTimeMillis()); //返回当前时间与1970-1-1的毫米差值
         System.out.println("距离1970年1月1日  "+System.currentTimeMillis()/1000.0/3600/24/365+"年");
 
+
         System.out.println("------------------------------------------------------------------分割线 测试21.3 Object类");
-
-
-        //*3  Object类  lang包中 无需导入 祖宗类 所有类都直接间接继承Object类
+                //*3  Object类  lang包中 无需导入 祖宗类 所有类都直接间接继承Object类
         System.out.println(lucy.toString()); //toString获取对象的信息 ，建议所有子类重写 不然返回的是对象地址
         System.out.println(lbw.equals(lucy));//对象内容的比较用equals方法 不能用==  也要重写不然比较地址值 alt+insert在类里面重写
         //总结 记得重写tostring 和equals
 
-        //*4 Arrays类(大写加s) util类中 需导包
-        int[] arr={7,9,8,2};
+                //*4 Arrays类(大写加s) util类中 需导包
+       int[] arr={7,9,8,2};
         System.out.println("排序前"+Arrays.toString(arr));//Arrays.toString获取数组
         Arrays.sort(arr);                                //Araays.sort排序 效率不如冒泡
         System.out.println("排序后"+Arrays.toString(arr));
 
-        //*5包装类 八大基本类型本别对应自己的包装类
-        Integer i1=Integer.valueOf(100);  //创建Integer对象并赋值   不能使用 new Integer（）； 因为已经过时
+                //*5包装类 八大基本类型本别对应自己的包装类
+         Integer i1=Integer.valueOf(100);  //创建Integer对象并赋值   不能使用 new Integer（）； 因为已经过时
+
         //其他类型 long--Long float--Float char--Character 除了int 和 char 以外都只是把首字母变大写
 
         //StringBuilder  存在的原因：为了解决string浪费资源的情况 每次对string操作就会生成新的对象 浪费资源 而stringbuilder可以直接更改 可变字符序列
         StringBuilder sb=new StringBuilder();
-        sb.append("hello").append("fuck").append("you");//append方法 和链式编程 对象可以连续调方法
+        sb.append("hello").append("fuck").append("you");//append方法 加内容 和链式编程 对象可以连续调方法
         sb.reverse();//反转所有字符的方法
         System.out.println(sb);
+
         //SringBuilder与String的转换
-
         String sb2= sb.toString(); //stringbuilder转string   使用toString方法可以将值赋给String
-
         StringBuilder sb3=new StringBuilder(sb2); //String转stringbuilder  构造方法传参
+
+                //*5 日期类
+        //*5.1 Date类 有多个包有这个类 我们学的util包中的 要导
+                //创建日期对象
+        long millitime =1000*3600;
+        Date date2=new Date(millitime); //有参long类型 单位毫秒 传入后是 传入数据加上 1970年1月1日0时0分的时间 也要分时区 东八区为8时
+        Date date1=new Date();// 无参构造 获得当前时间
+        System.out.println(date2);
+        System.out.println(date1);
+                //常用方法
+        System.out.println(date1.getTime());//getTime方法获取date1时间 距离基准时间的毫秒数
+        date2.setTime(millitime*24);//setTime方法 和创建对象时候传参效果一样 在基准时间的基础上加时间 单位为毫米,以前赋的值作废
+        System.out.println(date2);
+
+
+                //SimpleDateFormat类 需导包 在text包中
+        SimpleDateFormat sdf=new SimpleDateFormat();//无参构造  是系统给定格式 年月日 时分
+        String stri = sdf.format(date1);//format方法 将日期格式化成字符串 Date到Srting
+        System.out.println(stri);
+
+        //自定义时间格式 y-年 M-月 d-日 H-时 m-分 s-秒 年月日时分秒 小大小大小小
+        SimpleDateFormat sdf2=new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");
+        System.out.println(sdf2.format(date1));//sdf需要用format方法要传个date对象进去 simpledateformat对象本身没有时间
+
+        //从String到Date 需要与规定格式匹配
+        String strin="2077年01月01日00时00分00秒";
+       // System.out.println(sdf.parse(strin)); //parse方法需要抛出异常
+
+        //Calendar类
+        Calendar cal=Calendar.getInstance();
+        System.out.println(cal.get(Calendar.YEAR)+"    "+ cal.get(Calendar.MONTH)+1);//月从0开始的
+         //calendar方法
+        cal.get(Calendar.MONTH);//获取值
+        cal.add(Calendar.YEAR,-3); //对具体时间进行数学运算操作
+        cal.set(2077,1,1);//修改数据
+
+
+
+
+
+
+
+
+
+
+        System.out.println("------------------------------------------------------------------分割线 测试22 集合");
+        //22*集合  分为Colletion和Map这两个都是顶层接口 靠子接口实例
+                  // Collection及List存在的原因：解决数组不能改变而适应不了变化的需求
+
+        //Collection集合 是单例集合的顶层接口 表示一组对象 不能直接实例 只能子接口实例 它的直接子接口是List和Set
+        Collection<String> col=new ArrayList<String>();
+        col.add("集合接口通用方法啦啦啦啦");//add 添加元素进集合 但是如果写在print（)里面的话 会返回boolean代表是否添加成功
+        col.remove("1");//remove  boolean结果 会在集合中匹配 没删除成功返回false
+        col.clear();//clear 清空所有元素
+        col.contains("a");//contains 通过匹配 判断集合中是否有某个元素
+        col.isEmpty();//判断集合是否为空
+        col.size();//返回集合中元素个数
+
+        //集合遍历 集合专用迭代器 iterator
+        col.add("123");
+        col.add("山本我日你先人" );
+        Iterator<String> iterator= col.iterator();
+        //原理 先把要遍历的集合赋给迭代器 迭代器对象自带一些方法可以读取元素
+        while (iterator.hasNext()){
+            System.out.print(iterator.next());  //hasNext从第一个元素开始判断是否有内容 ，next方法获取内容 类似toString
+        }
+        //迭代器专属异常：并发修改异常；在迭代器遍历期间，集合元素被修改，这是不行的 。。有一种方法叫列表迭代器 可以直接add 了解即可
+        //增强for循环底层原理是Iterator迭代器
+
+
+        //数据结构 1.栈 类似弹匣先进后出 2.队列 类似弹匣底部是空的 先进也 从下面先出
+        //3.数组 查询快（索引定位），增删慢（删了需要后面所有元素前移动，增加往后移，效率低） //由ArrayList底层实现
+        //4.链表 增删快，查询慢（查任意一个要从头节点查） 链表的元素叫节点 节点有三个数据 1自身的地址，2具体存储的内容 3下一个节点的地址 //由LinkedList底层实现
+
+
+        //List集合特点 1.有序 2.可重复 List为接口 实现类为ArrayList和LinkedList
+        //与下面arraylist类似 不展示了
+
+        //LinkedList集合特有功能 ,底层是链表 具有链表的性质 增添快 查询慢。也具有普通方法
+        LinkedList<String> linkedList=new LinkedList<String>();
+
+        linkedList.addFirst("java"); //在链表开头插入指定元素
+        linkedList.addLast("fuckyou");//末尾插入指定元素
+        linkedList.removeFirst();//删除并返回第一个元素
+        //还有removeLast getFirst getLast
+
+
+
+
+        //ArrayList<E>:可调整大小的数组实现  <E>：是一种特俗的数据类型，泛型   (util包中 需要导包)
+
+        //创造arraylist集合对象 ， ArrayList（）本质就是构造方法
+        ArrayList<String> al=new ArrayList<>();
+
+        //*1 add方法 添加元素
+        al.add("hello");
+        al.add("world");
+
+        //*1.1 add可以在指定位置插入元素 1是第二个位置 注意不可越界
+        al.add(1,"插队");
+        System.out.println(al);
+
+        //*2 删除指定元素 并返回是否删除成功,没匹配到就不成功呗
+        System.out.println(al.remove("hello"));
+
+        //*2.1 删除指定下标所在元素 返回是删除的元素
+        al.remove(1);
+        System.out.println(al);
+
+        al.set(0,"修改指定位置元素");//set方法 修改指定索引位置元素  //要打印才会显示
+        al.get(0);                //get方法 获取指定位置元素  //常用于遍历集合元素 配合for循环和size方法作为循环次数
+        al.size();                //size方法 获取元素个数
+
+        //set集合 无序不重复 真就是数学集合的性质 set是接口 用子类HashSet实列 其迭代顺序不能保证顺序
+        Set set1=new HashSet<>();//正常的add get方法都有
+
+        //哈希值 hashcode 是jdk根据字符串或数字或对象的地址算出来的int类型数值
+        System.out.println(lbw.hashCode());
+
+        
+
+
+
+
+
 
 
 
@@ -363,11 +482,6 @@ public class HelloWorld {
 
 
     }
-
-
-
-
-
     //main方法以外区域========================================================================方法测试 main方法之外区域
 
 
