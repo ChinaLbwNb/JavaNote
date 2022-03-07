@@ -582,8 +582,8 @@ public class HelloWorld{
             hashmap1.put("001",avengers);//把两个arraylist放入hashmap
             hashmap1.put("002",flash);
 
-            Set<String> set1=hashmap1.keySet();//遍历hashmap
-            for (String sss:set1) {
+            Set<String> set2=hashmap1.keySet();//遍历hashmap
+            for (String sss:set2) {
                 System.out.println(hashmap1.get(sss));//这里居然arraylist可以直接打印
             }
 
