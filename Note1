@@ -594,6 +594,31 @@ public class HelloWorld{
             System.out.println(avengers);
 
 
+            System.out.println("*23.file类及io流+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++=");
+            //File类   file可以将文件和目录路径名封装成对象 ，其封装的不是真正存在的文件，仅仅是路径名而已，可存在也可不存在
+            //三种构造方法 剩余两种pass
+
+            File f1=new File("D:\\JAVA\\JAVA.txt");//不存在也可以写
+
+            //方法 创建功能 1.creatNewFile() 2.mkdir(创建由此抽象路径命名的目录) 3.mkdirs（创建多级目录用)
+
+            //需求1 在D:\\itcast目录下创建java.txt文件
+            File f2=new File("D:\\itcast\\java.txt");
+            System.out.println(f2.createNewFile());//如果文件不存在就创建并返回true反之false且不创建
+
+
+            //需求2：在D:\\itcast目录下创建JavaSE文件夹
+            File f3=new File("D:\\itcast\\JavaSE");
+            System.out.println(f3.mkdir());//同上
+
+
+            //需求3 在D:\\itcast目录下创建多级文件夹或称目录 JavaWEB\HTML
+            File f4=new File("D:\\itcast\\JavaWEB\\HTML");
+            System.out.println(f4.mkdirs());//同上
+
+
+            //File类判断和获取功能
+
 
 
 
