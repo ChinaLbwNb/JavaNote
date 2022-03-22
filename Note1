@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class HelloWorld{
+public class HelloWorld{{
 
 
 
@@ -628,8 +628,7 @@ public class HelloWorld{
         //实践开始
 
 
-
-
+        System.out.println("24.1字节流----------------------------------------------------------------");
 
 
         //****写数据***** 即输出流
@@ -668,7 +667,8 @@ public class HelloWorld{
         //第三种.  写可以指定从数组的某个位置开始写入 且规定写入多少结束
         out.write(by2,0,26);   //格式 （数组名，偏移量即开始位置下标，写入长度）    有意思的是这里上面一句话存了25个字节
 
-        out.close();
+        //out.close();
+
         //追加写入 ，需要在创建fileoutpuStream对象时就操作  加逗号和true 这样每次会从末尾开始写 不然是从开头写 且以前内容无了
         FileOutputStream out2=new FileOutputStream("D:\\itcast\\JavaSE\\outputTest.txt",true);
 
@@ -677,10 +677,7 @@ public class HelloWorld{
         out2.close();
 
 
-
-
-
-
+        System.out.println("------------------------------------------------一个字节一个字节读数据");
 
         //****读数据**** 即输入流
 
@@ -701,8 +698,11 @@ public class HelloWorld{
 
 
         //复制文本文件   本质是读出内容 创建新文件 再写入内容
+        //根据数据源创建对象
         FileInputStream copyInput=new FileInputStream("D:\\itcast\\JavaSE\\复制操作文件.txt");
+        //根据目的地创建对象
         FileOutputStream copyOutput=new FileOutputStream("D:\\itcast\\JavaSE\\粘贴操作文件.txt");
+        //标准读取加打印
         int tem;
         while ((tem=copyInput.read())!=-1){
             copyOutput.write(tem);
@@ -712,14 +712,161 @@ public class HelloWorld{
         copyOutput.close();
 
 
+        System.out.println("\n\n-------------------------------------字节数组读数据");
 
 
         //读数据 一次读一个字节数组 （只理解了 未深刻掌握）
-        FileInputStream bArray=new FileInputStream("D:\\itcast\\JavaSE\\outputTest.txt");
-        byte[] bArr=new byte[15];
+        FileInputStream bArray=new FileInputStream("D:\\itcast\\JavaSE\\复制操作文件.txt");
+        byte[] bArr=new byte[2500];
         int length=bArray.read(bArr);
+
         System.out.println("\n读取到的内容长度："+length);
         System.out.println(new String(bArr)); //new string将字节数组转换成字符串输出
+        bArray.close();
+
+
+
+
+        //复制图片
+        //根据来源地创input
+        FileInputStream nm=new FileInputStream("D:\\itcast\\JavaSE\\aw.jpg");
+        //根据目的地创output
+        FileOutputStream mn=new FileOutputStream("D:\\itcast\\JavaSE\\awCopy.jpg");
+        //固定格式读写一体
+        int tem2;               //经测试格式一点都不能变 变了就不行
+        byte[] bArr2=new byte[1024];
+        while ((tem2=nm.read(bArr2))!=-1){
+            mn.write(bArr2,0,tem2);
+
+        }
+
+        mn.close();
+        nm.close();
+
+
+
+
+
+
+        //**********字节缓冲流************** BufferdOutputStream和BufferdInputStream
+        //这两个类实现缓冲输入（输出）流  缓冲区的作用  输入和输出的时候累计到一定数额再调用系统资源操作  避免每个操作都调入系统资源
+
+
+        //创建操作 有两种
+
+        //第一种创建    一先创建对应的普通stream对象 再创建buffered对象 因为buffered对象构造方法必须传入stream对象
+        FileInputStream is1=new FileInputStream("D:\\itcast\\JavaSE\\aw.jpg");
+        BufferedInputStream bis1=new BufferedInputStream(is1);
+
+        bis1.close();
+
+
+        //第二种创建  经典匿名内部类 （括号里面直接new）
+        BufferedInputStream bis2=new BufferedInputStream(new FileInputStream("D:\\itcast\\JavaSE\\aw.jpg"));
+
+        bis2.close();
+
+
+        /**复制视频 一共有四种操作
+         * 1.直接普通流加单字节复制
+         * 2.普通流加字节数组复制
+         * 3。缓冲流加单字节复制
+         * 4.缓冲流加字节数组复制
+         *
+         * 直接说结论 4最快 2其次 3再其次 1远慢于前三者
+         */
+
+
+
+
+        //字符流 由于字节流操作中文不方便 java提供了字符流 = 字节流+编码
+
+        /**解释为什么单字节复制中文会乱码
+
+         * 1.一个汉字 GBK编码对应2个字节 UTF-8对应3个字节
+         * 2.单字节读取和打印 会拆散中文编码 而乱码
+         * 3.识别中文原理，中文每种编码第一个字节都是负数
+         *
+         *字符串编码解码问题 当编码和解码为同一编码的时候才可以正确显示
+         * unicode 万国集 UTF-8属于unicde
+         * GBK  这两种是可以表示中文的
+         *
+         */
+
+        String string1="卢本伟牛逼";
+        //getByte编码可以指定编码
+        byte[]stringByte = string1.getBytes("GBK");//getByte编码可以指定编码 中文用GBK或UTF-8
+        String  jiema=new String(stringByte,"GBK");//这里是解码 跟编码要相同
+
+
+
+
+
+
+        System.out.println("24.2字符流-------------------------------------------------------------------");
+
+
+
+
+        //字符流
+
+        //字符流抽象基类 Reader和Writer  其子类以他们名字为后缀
+
+        //*************字符流 写入数据***********
+
+        //创建 操作基本与字节流一致
+        OutputStreamWriter osw=new OutputStreamWriter(out); //output永远对应writer
+
+        // 五种写入格式 1.单个字符 2.字符数组，可指定写入位置和长度 3.字符串，可指定写入位置和长度
+
+        osw.write("卢本伟牛逼");  //区别字节流写入 字节流要加getBytes
+        osw.write("全体起立",0,3);
+
+        osw.flush();//字符流特色 刷新流放发 ，由于字符流自带缓冲 如果不用刷新流或close方法（先刷新后关闭流） 就写不进去
+        osw.close();
+
+
+
+        //************字符流 写入数据**************
+
+        //创建    传入对应对象
+        InputStreamReader isr=new InputStreamReader(new FileInputStream("D:\\itcast\\JavaSE\\outputTest.txt"));
+
+        //两种读取格式 1.单个char 和2. char数组
+
+        int tempt2;
+        while ((tempt2=isr.read())!=-1) {
+            System.out.print((char) tempt2);
+        }
+
+
+        System.out.println("\n--------------------------------字符数组读取");
+
+        //char数组读取               //有意思的是 这两种读取似乎不能同时对同一个文件操作 不然一种会失效
+        char[] chars=new char[1024];
+        int tempt3;
+        while ((tempt3=isr.read(chars))!=-1){
+            System.out.println(new String(chars,0,tempt3));
+        }
+
+
+        //简捷偷懒类 FileWriter 和 FileReader 继承自字符流OutputStreamWriter和InputStreamReader
+        //更简洁的创建对象
+        FileWriter FW=new FileWriter("D:\\itcast\\JavaSE\\outputTest.txt");//不用匿名内部类了  直接普通类和字符流类合体 其他复制写入读取操作相同
+
+
+        //字符缓冲流！！！！！！！  操作基本一致
+        //BufferedReader  多了一个方法 readLine（） 一行一行的读 返回值是String 读到末尾返回 null while判断的时候用string接受 且！=null
+        //BufferedWriter  多了一个方法 newline（） 换行用的
+
+
+
+
+
+
+
+
+
 
 
 
@@ -776,4 +923,4 @@ public class HelloWorld{
 
 
     }
-} 
+}
