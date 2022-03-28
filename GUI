@@ -1,0 +1,99 @@
+package com.packageTest;
+
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+public class GUI_AWT {
+    public static void main(String[] args) {
+
+        // 1.Frame
+
+        //创建一个新的frame对象 括号里可写标题
+        Frame frame1=new Frame("我的第一个GUI界面");
+        //设置窗口可见性
+        frame1.setVisible(true);
+        //设置背景颜色 方法中传入color对象 可以匿名内部类
+        frame1.setBackground(new Color(0xD27F98));
+        //设置初始出现位置 左上角是原点
+        frame1.setLocation(100,100);
+        //设置大小
+        frame1.setSize(200,200);
+        //设定不可更改大小
+        frame1.setResizable(false);
+
+
+        //用自己写的方法创建
+        CreatFrame frame2=new CreatFrame(300,100,200,200,new Color(123),"牛批1");
+        CreatFrame frame3=new CreatFrame(100,300,200,200,new Color(20000),"牛批2");
+        CreatFrame frame4=new CreatFrame(300,300,200,200,new Color(92000),"牛批3");
+
+
+
+        // 2. Panel
+
+        //面板不能单独存在 需要放在frame上
+        CreatFrame frame5=new CreatFrame(800,400,700,700,new Color(0xE8A464),"Panel测试");
+        Panel panel1=new Panel();
+        Panel panel2=new Panel();
+
+        //设置布局      //注意 是frame设置布局 不是panel
+        frame5.setLayout(null);
+
+        //设置大小和坐标和颜色    坐标是相对于frame而言的
+        panel1.setBounds(100,100,100,100);
+        panel1.setBackground(new Color(0x65C4D3));
+
+        panel2.setBounds(200,200,200,200);
+        panel2.setBackground(new Color(123));
+
+
+        //将panel添加进frame
+        frame5.add(panel1);
+        frame5.add(panel2);
+
+        //监听事件 监听窗口关闭事件
+        //适配器模式（23种设计模式之一） （指本来实现windowListener接口要重写所有方法 但可以创建一个子类 windowAdapter来选择实现需要的
+        frame5.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                //这里手动写 点击关闭会怎么样
+                System.exit(0);
+            }
+        });
+
+
+
+
+    }
+}
+
+class CreatFrame extends Frame{
+    //设置一个计数器来记录创建了多少个
+    int a =0;
+    //写构造方法
+    public CreatFrame(int x,int y,int w,int h,Color color,String string){
+        //调用父类构造方法 这里是用来给界面起名字
+        super(string);
+
+        //设置窗口可见性
+        setVisible(true);
+        //设置背景颜色 方法中传入colour对象 可以匿名内部类
+        setBackground(color);
+        //设置初始出现位置 左上角是原点
+        setLocation(x,y);
+        //设置大小
+       setSize(w,h);
+        //设定不可更改大小
+       setResizable(false);
+       // 或者可以直接setBouds (x,y,w,h)
+
+
+
+    }
+
+
+
+
+        }
