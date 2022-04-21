@@ -1,0 +1,417 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class GUI_AWT{
+    public static void main(String[] args) {
+
+        // 1.Frame -------------------------------------------------------------------------------------------------开始
+
+        //创建一个新的frame对象 括号里可写标题
+        Frame frame1 = new Frame("我的第一个GUI界面");
+        //设置窗口可见性
+        frame1.setVisible(true);
+        //设置背景颜色 方法中传入color对象 可以匿名内部类
+        frame1.setBackground(new Color(0xD27F98));
+        //设置初始出现位置 左上角是原点
+        frame1.setLocation(100, 100);
+        //设置大小
+        frame1.setSize(200, 200);
+        //设定不可更改大小
+        frame1.setResizable(false);
+
+
+        //用自己写的方法创建
+        CreatFrame frame2 = new CreatFrame(300, 100, 200, 200, new Color(123), "牛批1");
+        CreatFrame frame3 = new CreatFrame(100, 300, 200, 200, new Color(20000), "牛批2");
+        CreatFrame frame4 = new CreatFrame(300, 300, 200, 200, new Color(92000), "牛批3");
+
+        //1.Frame---------------------------------------------------------------------------------------------------结束
+
+
+
+
+
+
+
+        // 2. Panel 面板 --------------------------------------------------------------------------------------------开始
+
+        //面板不能单独存在 需要放在frame上
+        CreatFrame frame5 = new CreatFrame(800, 400, 500, 400, new Color(0xE8A464), "Panel测试");
+        Panel panel1 = new Panel();
+        Panel panel2 = new Panel();
+
+        //设置布局      //注意 是frame设置布局 不是panel
+        frame5.setLayout(null);
+
+        //设置大小和坐标和颜色    坐标是相对于frame而言的
+        panel1.setBounds(100, 100, 100, 100);
+        panel1.setBackground(new Color(0x65C4D3));
+
+        panel2.setBounds(200, 200, 200, 200);
+        panel2.setBackground(new Color(123));
+
+
+        //将panel添加进frame
+        frame5.add(panel1);
+        frame5.add(panel2);
+
+        //监听事件 监听窗口关闭事件
+
+        //适配器模式（23种设计模式之一） （指本来实现windowListener接口要重写所有方法 但可以创建一个子类 windowAdapter来选择实现需要的
+
+
+        frame5.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                //这里手动写 点击关闭会怎么样
+                System.exit(0);
+            }
+        });
+        //  2.Pannel ----------------------------------------------------------------------------------------------结束
+
+
+
+
+
+
+
+        //  3.布局管理器 ------------------------------------------------------------------------------------------开始
+
+        //a* 流式布局
+        //b* 东西南北中
+        //c* 表格布局
+
+
+        // a*
+        CreatFrame frame6 = new CreatFrame(100, 500, 400, 200, new Color(12222223), "流式布局测试");
+
+        frame6.setLayout(new FlowLayout(FlowLayout.LEFT));    //设置流式布局  FlowLayout里面 还可以设置左右中
+        // frame6.setLayout(new FlowLayout(FlowLayout.RIGHT))
+        //frame6.setLayout(new FlowLayout(FlowLayout.CENTER))
+        Button button1 = new Button("play");
+        Button button2 = new Button("send");
+        Button button3 = new Button("download");
+
+        //组件-按钮 不同布局体现在按钮的不同拜访位置
+        frame6.add(button1);
+        frame6.add(button3);
+        frame6.add(button2);
+
+
+        //b* 东西南北中 BoderLayout布局
+        CreatFrame frame7 = new CreatFrame(100, 700, 400, 300, new Color(321), "东西南北中BorderLayout");
+
+        Button button4 = new Button("East");
+        Button button4_1 = new Button("West");
+        Button button4_2 = new Button("South");
+        Button button4_3 = new Button("North");
+        Button button4_4 = new Button("Center");
+        frame7.setLayout(new BorderLayout());
+        frame7.add(button4, BorderLayout.EAST);          //这个语法比较复杂
+        frame7.add(button4_1, BorderLayout.WEST);
+        frame7.add(button4_2, BorderLayout.SOUTH);
+        frame7.add(button4_3, BorderLayout.NORTH);
+        frame7.add(button4_4, BorderLayout.CENTER);
+
+
+        //c* 表格布局 GridLayout
+        CreatFrame frame8 = new CreatFrame(500, 100, 400, 300, new Color(321231221), "表格布局GridLayout");
+
+        frame8.setLayout(new GridLayout(2, 2, 1, 2)); //前两个是几行几列 后两个是行间距和列间距
+
+        Button button5 = new Button("1-1");
+        Button button5_1 = new Button("1-2");
+        Button button5_2 = new Button("2-1");
+        Button button5_3 = new Button("2-2");
+
+        frame8.add(button5);
+        frame8.add(button5_1);
+        frame8.add(button5_2);
+        frame8.add(button5_3);
+        //  3.布局管理器 --------------------------------------------------------------------------------------------结束
+
+
+
+
+
+
+
+        // 4.输入框监听事件-------------------------------------------------------------------------------------------开始
+
+
+        //为什么要创建MyActionListener类   因为ActionLisenner是一个接口 要自己写一个类来实现 并且 使用addActionListenner方法必须传入该类
+        class MyActionLisenner implements ActionListener {
+
+            @Override    //重写 说明这个事件是可以 自己想怎么样就怎么样的
+            public void actionPerformed(ActionEvent e) {
+                e.getSource();//获得一些资源，返回一个对象
+                TextField textField2=(TextField)e.getSource();  //将文本框的内容赋值给Text对象 利用其方法获得文本内容
+                System.out.println(textField2.getText()); //打印出输入的内容
+                textField2.setText("");//回车之后将文本清空一次
+            }
+        }
+
+
+
+        //创建对象
+        MyActionLisenner  myActionLisenner1= new MyActionLisenner();
+
+        CreatFrame frame9 = new CreatFrame(1000,500,1000,700,new Color(234567),"测试输入框监听事件");
+
+        TextField textField_1=new TextField(); //textFiled 文本框 只能输入一行不能换行 textArea 文本域 可以换行
+        frame9.add(textField_1);
+        textField_1.addActionListener(myActionLisenner1); //就是这里必须传入一个类
+
+        //4.输入框监听事件--------------------------------------------------------------------------------------------结束
+
+
+
+
+
+
+
+        //5.练习简易计算器-------------------------------------------------------------------------------------------开始
+
+        //万物皆对象 先创建计算器类
+        class caculator extends Frame{ //extends的Frame 所以这里相当于Frame对象 有大小边框颜色这些属性
+            public caculator(){
+                //三个文本框 （用来输入数字）
+                TextField num1=new TextField(10);//数字是文本框的长度
+                TextField num2=new TextField(10);
+                TextField num3=new TextField(20);
+
+                //一个按钮 等于按钮 用来计算结果
+                Button button_a=new Button("=");
+                button_a.addActionListener(new myAction2(num1,num2,num3));
+                //一个标签
+                Label label1=new Label("+");
+
+                //流式布局
+                setLayout(new FlowLayout());
+
+                //添加组件（流式布局从左到右依次添加）
+                add(num1);
+                add(label1);
+                add(num2);
+                add(button_a);
+                add(num3);
+
+
+                setVisible(true);
+                pack();
+
+
+
+            }
+                //监听器类
+               class myAction2 implements ActionListener{
+                private  TextField num1,num2,num3;
+
+                public myAction2(TextField num1,TextField num2,TextField num3){
+                            this.num1=num1;
+                            this.num2=num2;
+                            this.num3=num3;
+                    }
+
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //1.获取两个加数 再让其相加
+                        int n1=Integer.parseInt(num1.getText());  //getText获取的是字符串 转int需要包装类integer的parse方法
+                        int n2=Integer.parseInt(num2.getText());
+                        int n3=n1+n2;
+                        //2.将和放入第三个框
+                        num3.setText(""+n3);
+                        //3.清除前两个数
+                        num1.setText("");
+                        num2.setText("");
+                }
+                }
+        }
+
+        caculator caculator=new caculator();
+        //  5.简易计算器 ---------------------------------------------------------------------------------------------结束
+
+
+        final int[] i = {0};
+        // 6.画笔Paint ----------------------------------------------------------------------------------------------开始
+        class myPaint extends Frame{
+            Point points;
+            //存点的集合
+            ArrayList coordinate;
+
+            public myPaint(String title) throws HeadlessException {
+                    super(title);
+
+            //存鼠标点击的点的坐标
+            coordinate=new ArrayList<>();
+
+            }
+
+            //启动方法
+            public void loadPaint(){
+                setBounds(1200,20,800,500);
+                setVisible(true);
+
+                //添加鼠标监听器
+                this.addMouseListener(new myMouse());
+            }
+            //画笔
+            @Override
+            public void paint(Graphics g) {
+                super.paint(g);
+                //画笔需要颜色
+                g.setColor(Color.pink);
+                //画形状
+                g.fillOval(111,120,10,10);
+                g.fillRect(200,200,200,200);
+                //画笔用完，将它还原最初的颜色
+
+            //迭代器遍历存的点
+
+                Iterator iterator=coordinate.iterator();{
+                    while (iterator.hasNext()){
+                        Point pointTemp=(Point) iterator.next();
+                        g.fillOval(pointTemp.x,pointTemp.y,10,10);
+
+
+                    }
+                }
+
+            }
+
+            //鼠标监听   目的：实现鼠标画画  且需要集合存储之前划过的点 不然会消失
+            class myMouse extends MouseAdapter{   //本来要接入MouseListener接口  但这里别人写好了适配器 直接继承适配器 可以不用重写很多个方法
+                //鼠标的情况：1.按下 2.弹起 3.按住不放
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mousePressed(e);
+                    myPaint myPaint2=(myPaint)e.getSource();
+                    //按一下 记录按下点的坐标 存给一个ArrayList  上面再遍历
+                    points=new Point(e.getX(),e.getY());
+                    coordinate.add(points);
+                    i[0]++;
+
+                    System.out.println("画了"+ i[0] +"个点");
+
+
+                    //每画一个 刷新一次 重画 （所以要把之前的点存起来）
+                    repaint();
+                }
+            }
+        }
+
+        myPaint myPaint1=new myPaint("鼠标画画");
+        myPaint1.loadPaint();
+        // 6.画笔Paint ----------------------------------------------------------------------------------------------结束
+
+
+
+
+
+
+
+
+
+        // 7.窗口监听事件 --------------------------------------------------------------------------------------------开始
+
+
+        //用以前写过的CreateFrame而不新写类来继承（学习阶段操作）
+        CreatFrame windowTest=new CreatFrame(2000,500,700,700,new Color(90000),"窗口监听事件");
+        //创建一个类继承适配器（监听本来是接口的） 这里是适配器模式
+        class windowListener extends  WindowAdapter{
+
+            //closing方法的作用是 设置右上角的叉叉的功能
+            @Override
+
+            public void windowClosing(WindowEvent e) {
+                super.windowClosing(e);
+                windowTest.setVisible(false);
+                System.out.println("窗口监听事件测试Frame已关闭");
+            }
+
+            //actived (激活) 打开页面就算激活 设置点到页面的操作
+
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+                super.windowActivated(e);
+                System.out.println("窗口监听事件测试Frame已激活");
+                windowTest.setTitle("窗口监听已激活");
+            }
+
+            //获得焦点的操作 （还不会用）
+            @Override
+            public void windowGainedFocus(WindowEvent e) {
+                super.windowGainedFocus(e);
+                windowTest.setTitle("获得焦点");
+            }
+
+            //失去焦点时的操作 (没玩懂)
+            @Override
+            public void windowLostFocus(WindowEvent e) {
+                super.windowLostFocus(e);
+                System.out.println("窗口监听测试失去焦点");
+                windowTest.setTitle("失去焦点");
+            }
+        }
+
+
+        windowTest.addWindowListener(new windowListener());
+
+
+
+        // 7.窗口监听事件 --------------------------------------------------------------------------------------------结束
+
+
+        // 8.键盘监听事件---------------------------------------------------------------------------------------------开始
+
+        //创建一个键盘测试Frame
+        CreatFrame keyListener=new CreatFrame(2000,100,800,300,new Color(555555),"键盘监听事件");
+
+        //不用额外写 类继承适配器 直接全部匿名内部类了 重写方法都在匿名里面写
+        keyListener.addKeyListener(new KeyAdapter() {
+
+           //监测按下键盘的事件
+            @Override
+            public void keyPressed(KeyEvent e) {
+                super.keyPressed(e);
+                //检测按下的是哪个键 返回的是int
+                int keyCode_1; //用来接收
+                keyCode_1=e.getKeyCode();
+                //通过自带的KeyEvent的方法可以找到每个键的值 来进行判断
+                if (keyCode_1==KeyEvent.VK_UP){ //是用的十六进制 ASCII编码   （科普 ASC：america standard code，而ANSI码是ascII的扩展（ansi是美国标准协会的简写）
+                    System.out.println("你按了上键");
+                }
+            }
+        });
+
+
+
+
+
+
+        // 8.键盘监听事件---------------------------------------------------------------------------------------------开始
+
+
+
+
+
+
+
+
+    }
+    static class CreatFrame extends Frame{
+        public CreatFrame(int x,int y, int w,int h ,Color color,String string){
+            super(string);
+            setBounds(x,y,w,h);
+            setBackground(color);
+            setVisible(true);
+
+
+        }
+    }
+}
