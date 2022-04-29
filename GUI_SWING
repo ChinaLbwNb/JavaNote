@@ -1,0 +1,221 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URL;
+
+
+    //1.Swing之JFrame窗体-----------------------------------------------------------------开始
+    //1.初始化  init是initialize的简写
+    class creatJFrame extends JFrame {
+        public void init() {
+            JFrame jFrame1 = new JFrame("JFrame测试");
+            jFrame1.setVisible(true);
+            jFrame1.setBounds(500, 300, 700, 300);
+            //jFrame1.setBackground(new Color(877));
+
+
+            //2.设置文字  用Jlabel
+            JLabel jlabel1 = new JLabel("Jlabel测试");
+
+
+            jlabel1.setHorizontalAlignment(SwingConstants.CENTER);//使文字居中
+            jlabel1.setFont(new Font("无所谓", 19, 50));
+
+            //3.容器实例化
+            Container container1 = jFrame1.getContentPane();
+            container1.setBackground(new Color(877));
+            container1.add(jlabel1);
+
+
+            //4.设置关闭事件 (别人直接写好了关闭按钮监听器 需要传入进行的操作 关闭还是隐藏等)
+            jFrame1.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        }
+    }
+//1.Swing之JFrame窗体-----------------------------------------------------------------结束
+
+
+//2.弹窗JDialog----------------------------------------------------------------------开始
+//主窗口
+class mainFrame extends JFrame{
+    //构造方法
+    public mainFrame() {
+        this.setVisible(true);
+        this.setSize(800, 600);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        //JFrame放东西 需要先获取容器
+        Container container2 = this.getContentPane();
+        //绝对布局 根据坐标布局来
+        container2.setLayout(null);
+        //设置按钮
+        JButton button1 = new JButton("点击弹出对话框");
+        button1.setBounds(250, 150, 200, 100);//可以相对窗体来放位置 也可以调大小了
+        //自定义点击按钮的功能 （对按钮添加监听事件）
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //这里写弹窗
+                JDialog jDialog1 = new JDialog();
+                jDialog1.setBounds(1000, 400, 600, 300);
+                jDialog1.setVisible(true);
+                JLabel jLabel=new JLabel("我是傻逼");
+                jLabel.setFont(new Font("",1,50));
+
+                jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                jDialog1.add(jLabel);
+            }
+        });
+        //添加按钮
+        this.add(button1);
+    }
+
+}
+//2.弹窗JDialog----------------------------------------------------------------------结束
+
+//3.图标iCon（贴在标签label上）和ImageIcon图片图标------------------------------------------------------------------------------开始
+class icon extends JFrame implements Icon{
+    private  int width;
+    private int height;
+
+    public icon() throws HeadlessException {
+    }
+
+    public icon(int width, int height) throws HeadlessException {
+        this.width = width;
+        this.height = height;
+    }
+
+    @Override
+    public void paintIcon(Component c, Graphics g, int x, int y) {
+        g.fillOval(x,y,width,height);
+    }
+
+    @Override
+    public int getIconWidth() {
+        return this.width;
+    }
+
+    @Override
+    public int getIconHeight() {
+        return this.height;
+    }
+//写启动方法
+public void init2(){
+        icon icon=new icon(50,50);
+        JLabel jlabel2=new JLabel("icod测试",icon,SwingConstants.CENTER);
+    Container contentPane = this.getContentPane();
+        contentPane.add(jlabel2);
+        this.setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setBounds(1000,1000,400,400);
+
+        //添加图片
+        URL url1=icon.class.getResource("play.jpg");
+        ImageIcon imageIcon=new ImageIcon(url1); //这里有个官方类 叫ImageIcon URL地址需要传入这个类 再把这个类传入Jlabel
+        JLabel jLabel3=new JLabel(imageIcon);
+        contentPane.add(jLabel3);
+    }
+
+}
+
+//3.图标iCon 和ImageIcon图片图标------------------------------------------------------------------------------结束
+
+//4.面板JPanel----------------------------------------------------------------------------------------开始
+
+    class jPanelDemo extends JFrame{
+        public jPanelDemo()  {
+            Container container=this.getContentPane();
+            container.setLayout(new GridLayout(2,1,10,10)); //后面两个是间距
+
+            JPanel jPanel=new JPanel(); //这里是官方JPanel类  jPanelDemo相当于是JFrame类  这里设计的是构造方法就是启动方法
+            jPanel.add(new JButton("JButton1"));
+            jPanel.add(new JButton("JButton2"));
+            jPanel.add(new JButton("JButton3"));
+
+
+            this.setVisible(true);
+            this.setBounds(1500,300,400,800);
+
+            container.add(jPanel);
+
+        }
+    }
+
+    //4.面板JPanel----------------------------------------------------------------------------------------结束
+
+    //5.滚动面板JScrollPane(我感觉就是panel少了个l字母)--------------------------------------------------------开始
+    class jScrollDemo extends JFrame{
+        public jScrollDemo() {
+            Container container=this.getContentPane();
+            this.setBounds(1000,700,200,550);
+            this.setVisible(true);
+
+
+            //创建文本域（文本域对象直接放进JScroll构造方法）
+            JTextArea jTextArea=new JTextArea();
+            jTextArea.setText("程序添加的初始文字");
+            jTextArea.setFont(new Font("测试文本域",1,30));
+
+
+            //创建JScrollPane
+            JScrollPane jScrollPane=new JScrollPane(jTextArea);
+            container.add(jScrollPane);
+
+        }
+    }
+    //5.滚动面板JScrollPane---------------------------------------------------------------------------结束
+
+    //6.图片按钮，单选框多选框--------------------------------------------------------------------------开始
+    class jButtonImage extends JFrame{
+        public jButtonImage()  {
+            this.setVisible(true);
+            this.setBounds(2000,200,400,600);
+            Container container=this.getContentPane();
+            URL resource=jButtonImage.class.getResource("play.jpg");
+            ImageIcon imageIcon=new ImageIcon(resource);
+            JButton jButton=new JButton();
+            jButton.setIcon(imageIcon); //把按钮加图片
+            container.add(jButton);
+            jButton.setToolTipText("你看你妈呢");
+            jButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JDialog jDialog=new JDialog();
+                    jDialog.setVisible(true);
+                    jDialog.setBounds(1400,700,400,200);
+                    JLabel jLabel=new JLabel("点尼玛呢");
+                    jLabel.setFont(new Font("",1,50));
+                    jDialog.add(jLabel);
+                    jLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                }
+            });
+        }
+    }
+
+
+
+    //6.图片按钮，单选框多选框--------------------------------------------------------------------------结束
+    public class GUI_SWING {
+
+
+
+
+        //主函数 仅仅作为启动函数
+        public static void main(String[] args) {
+            new creatJFrame().init();
+            new mainFrame();
+            new icon().init2();
+            new jPanelDemo();
+            new jScrollDemo();
+            new jButtonImage();
+
+
+        }
+
+
+
+
+    }
